@@ -26,4 +26,15 @@ router.get('/weather/:lat,:lon', (request, response, next) => {
           next(err);
         });
 });
+router.get('/weather/location/:location', (request, response, next) => {
+  const location = request.params.location;
+  const url = `${baseUrl}${location}`;
+  axios.get(url)
+    .then(weather => {
+      response.json(weather.data);
+    })
+    .catch(err => {
+      next(err);
+    });
+})
 module.exports = router;
